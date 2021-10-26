@@ -40,7 +40,7 @@ class ThreadPool {
   template<typename ValueType>
   std::future<ValueType> addToWork(std::function<ValueType(void)> const& function) {
     static_assert(std::is_arithmetic_v<ValueType>);
-    auto task = std::make_shared<std::packaged_task<int()>>(function);
+    auto task = std::make_shared<std::packaged_task<ValueType()>>(function);
 
     std::future<ValueType> result = task->get_future();
     {

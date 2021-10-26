@@ -7,22 +7,22 @@
 
 class A {
  public:
-  using Future = std::future<int>;
-
- public:
   A() : m_threadPool(num_threads) {}
 
   template <typename T>
   std::vector<T> f(std::vector<T> const& vec) {
-    std::vector<int> returnVector;
+
+    using Future = std::future<T>;
+
+    std::vector<T> returnVector;
     std::vector<Future> awaitedResult;
     returnVector.reserve(vec.size());
     awaitedResult.reserve(vec.size());
 
     for (int i = 0; i < vec.size(); ++i) {
-      int value = vec.at(i);
+      T value = vec.at(i);
       awaitedResult.emplace_back(
-          m_threadPool.addToWork<int>([value]() { return value * value; }));
+          m_threadPool.addToWork<T>([value]() { return value * value; }));
     }
 
     for (int i = 0; i < awaitedResult.size(); ++i) {
