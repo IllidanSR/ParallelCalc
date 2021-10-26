@@ -1,9 +1,8 @@
 #pragma once
-#include "ThreadPool.hpp"
-
 #include <future>
 #include <vector>
 
+#include "ThreadPool.hpp"
 
 class A {
  public:
@@ -11,7 +10,6 @@ class A {
 
   template <typename T>
   std::vector<T> f(std::vector<T> const& vec) {
-
     using Future = std::future<T>;
 
     std::vector<T> returnVector;

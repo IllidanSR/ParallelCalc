@@ -4,13 +4,12 @@
 #include <functional>
 #include <future>
 #include <memory>
-#include <queue>
 #include <mutex>
-#include <type_traits>
+#include <queue>
 #include <thread>
-#include <vector>
+#include <type_traits>
 #include <utility>
-
+#include <vector>
 
 class ThreadPool {
  public:
@@ -37,8 +36,9 @@ class ThreadPool {
       });
   }
 
-  template<typename ValueType>
-  std::future<ValueType> addToWork(std::function<ValueType(void)> const& function) {
+  template <typename ValueType>
+  std::future<ValueType> addToWork(
+      std::function<ValueType(void)> const& function) {
     static_assert(std::is_arithmetic_v<ValueType>);
     auto task = std::make_shared<std::packaged_task<ValueType()>>(function);
 
@@ -46,7 +46,8 @@ class ThreadPool {
     {
       std::unique_lock<std::mutex> lock(m_workerMutex);
 
-      if (m_stopFlag) throw std::runtime_error("addToWork on stopped ThreadPool");
+      if (m_stopFlag)
+        throw std::runtime_error("addToWork on stopped ThreadPool");
 
       m_taskQueue.emplace([task]() { (*task)(); });
     }
@@ -60,7 +61,7 @@ class ThreadPool {
       m_stopFlag = true;
     }
     m_condition.notify_all();
-    for (std::thread &worker : m_worker) {
+    for (std::thread& worker : m_worker) {
       worker.join();
     }
   }
