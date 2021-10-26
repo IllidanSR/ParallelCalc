@@ -2,7 +2,7 @@
 --
 Implementation parallel calc for primitive arithmetic types.
 Parallel work based on simple thread pool worker.
-Worker for work with any accepted signature functional object .
+Worker for process with any accepted signature functional object .
 
 **How to build?**
 --
