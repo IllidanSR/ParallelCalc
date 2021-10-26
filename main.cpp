@@ -1,5 +1,4 @@
-#include "Test.hpp"
-
+#include "Tests/Test.hpp"
 
 int main() {
   TestSizeEquals();

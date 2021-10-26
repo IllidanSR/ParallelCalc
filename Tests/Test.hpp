@@ -1,13 +1,11 @@
 #pragma once
 
 #include <cassert>
-
-#include "AClass.hpp"
-
 #include <iostream>
 #include <type_traits>
 #include <vector>
 
+#include "../ThreadPool/AClass.hpp"
 
 using Vector = std::vector<int>;
 
